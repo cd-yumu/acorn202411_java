@@ -12,14 +12,20 @@ public class MainClass05 {
 		 * 	  ride() 메소드를 호출해 보세요
 		 */
 		
-		Bike[] bike = new Bike[3];
+		Bike[] bikes = new Bike[3];
 		
-		for(int i = 0 ; i < 3 ; i++) {
-			bike[i] = new Bike(); 
+		// 배열의 방의 사이즈 만큼 반복문 돌기
+		for(int i = 0 ; i < bikes.length ; i++) {
+			bikes[i] = new Bike(); 
 		}
 		
-		for(int i = 0 ; i < bike.length ; i++) {
-			bike[i].ride();
+		for(int i = 0 ; i < bikes.length ; i++) {
+			// i 번째 방에 있는 Bike 객체의 참조값 얻어오기
+			Bike tmp = bikes[i];
+			// tmp 에 있는 Bike 객체의 .ride() 메소드 호출
+			tmp.ride();	
+			
+//			bikes[i].ride();
 		}
 	}
 }
