@@ -27,5 +27,14 @@ public class MainClass05 {
 			
 //			bikes[i].ride();
 		}
+		
+		System.out.println();
+		
+		// for 문 줄임 버전 (확장for문)
+		// (임시 배열 : 참조할 것)
+		for(Bike tmp:bikes) {
+			tmp.ride();
+		}
+		
 	}
 }
