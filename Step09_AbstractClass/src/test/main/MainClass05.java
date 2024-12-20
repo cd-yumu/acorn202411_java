@@ -15,8 +15,7 @@ public class MainClass05 {
 		};
 		
 		// 메소드 호출하면서 전달하기
-		useWeapon(w1);
-		
+		useWeapon(w1);	
 		// 메소드 호출하면서 즉석에서 Weapon type 의 참조값을 얻어내서 전달하기
 		// 익명 클래스를 이용해서 추상 클래스를 불러냈다
 		useWeapon(new Weapon() {	
@@ -31,5 +30,4 @@ public class MainClass05 {
 		w.prepare();
 		w.attack();
 	}
-	//주석 추가
 }
