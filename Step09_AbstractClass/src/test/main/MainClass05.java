@@ -31,5 +31,5 @@ public class MainClass05 {
 		w.prepare();
 		w.attack();
 	}
-
+	//주석 추가
 }

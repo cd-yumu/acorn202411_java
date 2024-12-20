@@ -31,6 +31,6 @@ public class MainClass01 {
 		Weapon w2 = new MyWeapon();
 		w2.prepare();
 		w2.attack();
-		
+		// 주석 추가
 	}
 }
