@@ -20,22 +20,47 @@ public class MainClass03 {
 			System.out.println(tmp);
 		}
 		
+		System.out.println("------ -----");
+		
+		// 아래의 동작을 분석해보세요
 		Consumer<String> con = new Consumer<String>() {
 			@Override
 			public void accept(String t) {
+				// 매개 변수에 전달되는 item 을 가지고 어떤 작업을 할지 여기에 coding 해준다.
 				System.out.println(t);
 			}
 		};
 		
+		/*
+		 * ArrayList 객체의 forEach() 메소드를 호출하면서 Consumer type 객체를 전달하면
+		 * 전달된 객체의 accept() 메소드를 호출하면서
+		 * ArrayList 객체에 저장된 item 을 순서대로 매개 변수에 전달해 준다.
+		 */
+		
 		greets.forEach(con);
 		
 		
-		greets.forEach(new Consumer<String>() {
-			@Override
-			public void accept(String t) {
-				System.out.println(t);
-			}
+		System.out.println("---------");
+		
+		Consumer<String> con2 = (t)->{
+			System.out.println(t);
+		};
+		greets.forEach(con2);
+		
+		
+		System.out.println("---------");
+		
+		greets.forEach((t)->{
+			System.out.println(t);
 		});
+		
+		
+//		greets.forEach(new Consumer<String>() {
+//			@Override
+//			public void accept(String t) {
+//				System.out.println(t);
+//			}
+//		});
 		
 	}
 	
