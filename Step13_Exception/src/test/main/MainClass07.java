@@ -16,5 +16,4 @@ public class MainClass07 {
 		}
 		System.out.println(ranNum + " 숫자가 나왔습니다.");
 	}
-
 }
