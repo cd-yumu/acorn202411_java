@@ -19,6 +19,7 @@ public class MyFrame extends JFrame{
 		setBounds(100,100,500,500);
 		// 종료 버튼을 눌렀을 때 프로세스 전체가 종료되도록 한다.
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		//레이아웃 메니져 객체 생성
 		FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
 		// 프레임의 레이아웃 메니져 설정

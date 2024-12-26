@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class MyFrame extends JFrame{
+public class MyFrame_m extends JFrame{
 
 	// 생성자
-	public MyFrame() {
+	public MyFrame_m() {
 		// 프레임의 제목
 		this.setTitle("My Fram");
 		// 프레임의 위치와 크기 setBounds(x,y,width,height)
@@ -58,7 +58,7 @@ public class MyFrame extends JFrame{
 	
 	// main method
 	public static void main(String[] args) {
-		new MyFrame();
+		new MyFrame_m();
 	}
 	
 }
