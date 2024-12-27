@@ -1,4 +1,4 @@
-package test.main;
+package test.myTest;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -44,7 +44,6 @@ public class MyMainClass2 extends JFrame{
 		add(scroll, BorderLayout.CENTER);
 					
 		
-		
 		// 저장 버튼 누르면 파일에 입력 및 저장
 		btnSave.addActionListener((e)->{
 			try {
@@ -67,6 +66,8 @@ public class MyMainClass2 extends JFrame{
 		// 로드 버튼을 누르면 파일에 있는 내용 읽기
 		btnLoad.addActionListener((e)->{
 			try {
+			
+				
 			var sb = new StringBuilder();
 			// 파일로 부터 문자열을 읽어들일 수 있는 객체 생성
 			FileReader fr = new FileReader(f);
@@ -88,6 +89,7 @@ public class MyMainClass2 extends JFrame{
 			String result = sb.toString();
 			ta.setText(result);
 			
+			
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -96,7 +98,6 @@ public class MyMainClass2 extends JFrame{
 				e1.printStackTrace();
 			}
 		});
-		
 		
 		setVisible(true);
 	}

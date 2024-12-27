@@ -13,7 +13,6 @@ import java.io.InputStream;
  * - 1byte 를 10진수로 환산하면 0~255 사이의 숫자 중에 하나이다.
  * - 입려고가 출력을 통해서 이동하는 데이터는 byte(byte알갱이) 하나 하나가 이동한다고 생각하면 된다.
  */
-
 public class MainClass01 {
 
 	public static void main(String[] args) {
@@ -29,6 +28,7 @@ public class MainClass01 {
 		try {
 			// 입력한 키의 code 값 읽어오기
 			int code = kbd.read();
+
 			System.out.println("code: " + code);
 			
 			// code 값에 대응되는 문자 얻어내기

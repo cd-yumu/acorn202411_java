@@ -17,6 +17,7 @@ public class MainClass02 {
 		
 		try {
 			int code = isr.read();
+			
 			System.out.println("code: " + code);
 			char ch = (char)code;
 			System.out.println("ch: "+ch);
