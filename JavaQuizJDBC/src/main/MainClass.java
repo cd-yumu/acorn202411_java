@@ -125,16 +125,12 @@ public class MainClass extends JFrame implements ActionListener, PropertyChangeL
 		String[] colNames = {"ID", "등록일", "구분", "메뉴","가격", "평가"}; 
 		
 		model = new DefaultTableModel(colNames,0) {
+//			Cell 이 수정 돼도 되는지 확인해서 리턴
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				System.out.println(row+" | "+column);
-				
-				if(column==0) { // 0번째 칼럼은 
-					return false; //수정 불가하게 false 를 리턴해 준다.
-				}else { //다른 경우는 
-					return true; //모두 수정 가능하게 true 를 리턴해 준다. 
-				}
-			}
+				if(column==0) return false;  // 1열 ID 는 수정 불가하게 만들기
+				else return true;	// 그 외에는 수정 가능!
+			}	
 		};
 
 		
@@ -153,13 +149,11 @@ public class MainClass extends JFrame implements ActionListener, PropertyChangeL
 	}
 	
 	
-	
+//	Cell 이 변했는지 동작 감지 및 변했을 경우 동작할 것 코딩 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		System.out.println("property change!");
 		System.out.println("property name:"+evt.getPropertyName());
-		
 		System.out.println("isEditing:"+table.isEditing());
 		/*
 		 *  property name 이 "tableCellEditor" 이고
@@ -177,9 +171,18 @@ public class MainClass extends JFrame implements ActionListener, PropertyChangeL
 			String menu = (String)model.getValueAt(selectedIndex, 3);
 			int price = (int)model.getValueAt(selectedIndex, 4);
 			String review = (String)model.getValueAt(selectedIndex, 5);
+			System.out.println("regdate: " + regdate);
 			
 			//수정할 회원의 정보를 MemberDto 객체에 담고 
-			FoodDto dto=new FoodDto(id,regdate,category,menu,price,review);
+//			FoodDto dto=new FoodDto(id,regdate,category,menu,price,review);
+			FoodDto dto = new FoodDto();
+			dto.setId(id);
+			dto.setRegdate(regdate);
+			dto.setCategory(category);
+			dto.setMenu(menu);
+			dto.setPrice(price);
+			dto.setReview(review);
+			
 			//DB에 저장하기 
 			new FoodDao().update(dto);
 			//선택된 포커스 clear

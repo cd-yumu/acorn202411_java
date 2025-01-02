@@ -34,7 +34,11 @@ public class FoodDto {
 		return regdate;
 	}
 	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+		String s = null;
+		
+		if(regdate.contains(" ")) s = regdate.substring(0, regdate.lastIndexOf(" "));
+		else s = regdate;
+		this.regdate = s;
 	}
 	public String getCategory() {
 		return category;

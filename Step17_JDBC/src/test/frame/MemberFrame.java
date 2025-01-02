@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import test.dao.MemberDao;
 import test.dto.MemberDTO;
 
-public class MemberFrame extends JFrame implements ActionListener{
+public class MemberFrame extends JFrame implements ActionListener, PropertyChangeListener{
 	JTextField inputName, inputAddr;
 	DefaultTableModel model;
 	JTable table;
@@ -70,7 +72,20 @@ public class MemberFrame extends JFrame implements ActionListener{
 		table = new JTable();
 		String[] colNames = {"NUMBER","NAME","ADDR"};
 		// 테이블에 연결할 모델 객체
-		model = new DefaultTableModel();
+		model = new DefaultTableModel() {
+//			 재정의 하려면 해당 부모 클래스를 상속 받은 자식 클래스에서 오버라이드 하여 사용하지만
+//			 간단하게 익명 클래스를 활용한다.
+			@Override
+			public boolean isCellEditable(int row, int column) {
+//				특정 Cell 이 수정 가능한지의 여부를 리턴해준다.
+				
+				if(column == 0) return false;	// 0 번째 컬럼은 false 를 리턴해 수정 불가능하게 만들고
+				else return true;	// 그 외의 경우에는 true 를 리턴해서 수정 가능하게 만든다.
+				
+//				return false; // 모든 Cell 이 수정 불가능해진다.
+//				return super.isCellEditable(row, column);
+			}
+		};
 		model.setColumnIdentifiers(colNames);
 //		model.setRowCount(0);
 		//모델을 테이블에 연결
@@ -90,6 +105,8 @@ public class MemberFrame extends JFrame implements ActionListener{
 		table.setFont(new Font("Sans-serif", Font.PLAIN, 16)); // 데이터 글자 크기
 		table.setRowHeight(25); // 행 높이
 		
+		// 테이블에 출력한 값이 바뀌었는지 감지할 리스너 등록
+		table.addPropertyChangeListener(this);
 		
 	}// Constructor
 	
@@ -158,6 +175,45 @@ public class MemberFrame extends JFrame implements ActionListener{
 			// 테이블에 연결된 모델에 추가하기
 			model.addRow(rowData);
 		}
+	}
+
+//	Cell 변경이 감지되면 작동하는 메소드
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		/*
+		 * property name 이 "tableCellEditor" 이고 table 이 수정중이 아닐 때
+		 * 현재 포커스가 있는 곳의 정보를 모두 읽어 와서 DB 에 수정 반영하기
+		 */
+		
+//		property name 이 "tableCellEditor" 이고 table 이 수정중이 아닐 때
+		if(evt.getPropertyName().equals("tableCellEditor") && !table.isEditing()) {
+//			현재 테이블의 데이터 상태를 DB 에 저장해라
+			
+			/*
+			 * 현재 포커스가 있는 row 의 정보를 DB 에 수정 반영 한다.
+			 * = 변화된 값을 읽어와서 DB 에 반영한다.
+			 * 수정된 컬럼에 있는 row 전체 값을 읽어온다.
+			 */
+//			해당 row 행 값은
+			int selectedIndex = table.getSelectedRow();
+//			해당 row 의 각 컬럼 값들
+			int num = (int)model.getValueAt(selectedIndex, 0);
+			String name = (String)model.getValueAt(selectedIndex, 1);
+			String addr = (String)model.getValueAt(selectedIndex, 2);
+			
+			// 읽어온 내용을 Dto 에 담아서
+			MemberDTO dto = new MemberDTO();
+			dto.setNum(num);
+			dto.setName(name);
+			dto.setAddr(addr);
+			
+			// MemberDao 객체를 통해 수정 반영 한다.
+			new MemberDao().update(dto);
+			
+			// 선택된 포커스 해제
+			table.clearSelection();
+		}
+		
 	}
 	
 }
